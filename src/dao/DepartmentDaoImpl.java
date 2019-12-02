@@ -11,15 +11,16 @@ public class DepartmentDaoImpl implements DepartmentDao
 {
     public boolean addDept(Department dept)
     {
-        String sql = "insert into department value(?,?);";
-        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql))
+        String sql="insert into department value(?,?);";
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
-            pstmt.setString(1, dept.getDept());
-            pstmt.setString(2, dept.getInf());
-            int cnt = pstmt.executeUpdate();
-            if (cnt != 0) return true;
+            pstmt.setString(1,dept.getDept());
+            pstmt.setString(2,dept.getInf());
+            int cnt=pstmt.executeUpdate();
+            if(cnt!=0) return true;
             return false;
-        } catch (SQLException e)
+        }
+        catch(SQLException e)
         {
             e.printStackTrace();
             return false;
@@ -28,21 +29,21 @@ public class DepartmentDaoImpl implements DepartmentDao
 
     public Department findByName(String dept_name)
     {
-        String sql = "select * from department where dept_name=?;";
-        Department dept = new Department();
-        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql))
+        String sql="select * from department where dept_name=?;";
+        Department dept=new Department();
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
-            pstmt.setString(1, dept_name);
-            try (ResultSet ret = pstmt.executeQuery())
+            pstmt.setString(1,dept_name);
+            try(ResultSet ret=pstmt.executeQuery())
             {
-                if (ret.next())
+                if(ret.next())
                 {
                     dept.setDept(dept_name);
                     dept.setInf(ret.getString("inf"));
-                } else
-                    return null;
+                }else return null;
             }
-        } catch (SQLException e)
+        }
+        catch(SQLException e)
         {
             e.printStackTrace();
             return null;
@@ -52,15 +53,16 @@ public class DepartmentDaoImpl implements DepartmentDao
 
     public boolean modifyDept(Department dept)
     {
-        String sql = "update Department inf=? where dept_name=?;";
-        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql))
+        String sql="update Department inf=? where dept_name=?;";
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
-            pstmt.setString(1, dept.getInf());
-            pstmt.setString(2, dept.getDept());
-            int cnt = pstmt.executeUpdate();
-            if (cnt != 0) return true;
+            pstmt.setString(1,dept.getInf());
+            pstmt.setString(2,dept.getDept());
+            int cnt=pstmt.executeUpdate();
+            if(cnt!=0) return true;
             return false;
-        } catch (SQLException e)
+        }
+        catch(SQLException e)
         {
             e.printStackTrace();
             return false;
@@ -69,14 +71,15 @@ public class DepartmentDaoImpl implements DepartmentDao
 
     public boolean delDept(String dept_name)
     {
-        String sql = "delete from department where dept_name=?;";
-        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql))
+        String sql="delete from department where dept_name=?;";
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
-            pstmt.setString(1, dept_name);
-            int cnt = pstmt.executeUpdate();
-            if (cnt != 0) return true;
+            pstmt.setString(1,dept_name);
+            int cnt=pstmt.executeUpdate();
+            if(cnt!=0) return true;
             return false;
-        } catch (SQLException e)
+        }
+        catch(SQLException e)
         {
             e.printStackTrace();
             return false;

@@ -8,17 +8,17 @@ public class User implements Serializable
 
     public void setUsername(String username)
     {
-        this.username = username;
+        this.username=username;
     }
 
     public void setUsertype(String usertype)
     {
-        this.usertype = usertype;
+        this.usertype=usertype;
     }
 
     public void setPassword(String password)
     {
-        this.password = password;
+        this.password=password;
     }
 
     public String getUsername()

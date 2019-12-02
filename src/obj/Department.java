@@ -18,11 +18,11 @@ public class Department implements Serializable
 
     public void setInf(String inf)
     {
-        this.inf = inf;
+        this.inf=inf;
     }
 
     public void setDept(String dept)
     {
-        this.dept = dept;
+        this.dept=dept;
     }
 }

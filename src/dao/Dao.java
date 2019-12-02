@@ -11,12 +11,13 @@ public interface Dao
 {
     public static DataSource getDataSource()
     {
-        DataSource dataSource = null;
+        DataSource dataSource=null;
         try
         {
-            Context context = new InitialContext();
-            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/webstoreDS");
-        } catch (NamingException e)
+            Context context=new InitialContext();
+            dataSource=(DataSource)context.lookup("java:comp/env/jdbc/webstoreDS");
+        }
+        catch(NamingException e)
         {
             e.printStackTrace();
         }
@@ -25,12 +26,13 @@ public interface Dao
 
     public default Connection getConnection()
     {
-        DataSource dataSource = getDataSource();
-        Connection conn = null;
+        DataSource dataSource=getDataSource();
+        Connection conn=null;
         try
         {
-            conn = dataSource.getConnection();
-        } catch (SQLException e)
+            conn=dataSource.getConnection();
+        }
+        catch(SQLException e)
         {
             e.printStackTrace();
         }

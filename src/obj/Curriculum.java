@@ -8,22 +8,22 @@ public class Curriculum implements Serializable
 
     public void setDept(String dept)
     {
-        this.dept = dept;
+        this.dept=dept;
     }
 
     public void setInf(String inf)
     {
-        this.inf = inf;
+        this.inf=inf;
     }
 
     public void setName(String name)
     {
-        this.name = name;
+        this.name=name;
     }
 
     public void setTeacher(String teacher)
     {
-        this.teacher = teacher;
+        this.teacher=teacher;
     }
 
     public String getDept()
