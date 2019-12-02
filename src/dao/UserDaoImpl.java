@@ -41,7 +41,8 @@ public class UserDaoImpl implements UserDao
                     user.setUsername(ret.getString("u_name"));
                     user.setPassword(ret.getString("u_password"));
                     user.setUsertype(ret.getString("u_usertype"));
-                }
+                } else
+                    return null;
             }
         } catch (SQLException e)
         {
