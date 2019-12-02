@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context reloadable="true">
+    <Resource
+            name="jdbc/webstoreDS"
+            type="javax.sql.DataSource"
+            maxTotal="4"
+            maxIdle="2"
+            driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            url="jdbc:sqlserver://localhost:1433;DatabaseName=QASystemDB"
+            username="Setsuna"
+            password=""
+            maxWaitMillis="5000"
+    />
+</Context>
