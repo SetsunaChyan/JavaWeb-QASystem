@@ -4,13 +4,13 @@ import obj.Curriculum;
 
 public interface CurriculumDao extends Dao
 {
-    public boolean addCurriculum(Curriculum cur);
+    boolean addCurriculum(Curriculum cur);
 
-    public Curriculum findByTeacher(String teacher);
+    Curriculum findByTeacher(String teacher);
 
-    public Curriculum findByDept(String dept_name);
+    Curriculum findByDept(String dept_name);
 
-    public boolean delCurriculum(String cur_name);
+    boolean delCurriculum(String cur_name);
 
-    public boolean modifyCurriculum(Curriculum cur);
+    boolean modifyCurriculum(Curriculum cur);
 }

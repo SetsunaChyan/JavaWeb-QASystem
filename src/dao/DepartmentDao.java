@@ -4,11 +4,11 @@ import obj.Department;
 
 public interface DepartmentDao extends Dao
 {
-    public boolean addDept(Department dept);
+    boolean addDept(Department dept);
 
-    public Department findByName(String dept_name);
+    Department findByName(String dept_name);
 
-    public boolean modifyDept(Department dept);
+    boolean modifyDept(Department dept);
 
-    public boolean delDept(String dept_name);
+    boolean delDept(String dept_name);
 }

@@ -11,15 +11,14 @@ public class UserDaoImpl implements UserDao
 {
     public boolean addUser(User user)
     {
-        String sql="insert into user values(?,?,?);";
+        String sql="insert into users values(?,?,?);";
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             pstmt.setString(1,user.getUsername());
             pstmt.setString(2,user.getPassword());
             pstmt.setString(3,user.getUsertype());
             int cnt=pstmt.executeUpdate();
-            if(cnt!=0) return true;
-            return false;
+            return cnt!=0;
         }
         catch(SQLException e)
         {
@@ -30,7 +29,7 @@ public class UserDaoImpl implements UserDao
 
     public User findByName(String username)
     {
-        String sql="select * from user where u_name=?;";
+        String sql="select * from users where u_name=?;";
         User user=new User();
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
@@ -62,8 +61,7 @@ public class UserDaoImpl implements UserDao
             pstmt.setString(2,user.getUsertype());
             pstmt.setString(3,user.getUsername());
             int cnt=pstmt.executeUpdate();
-            if(cnt!=0) return true;
-            else return false;
+            return cnt!=0;
         }
         catch(SQLException e)
         {
@@ -79,8 +77,7 @@ public class UserDaoImpl implements UserDao
         {
             pstmt.setString(1,username);
             int cnt=pstmt.executeUpdate();
-            if(cnt!=0) return true;
-            else return false;
+            return cnt!=0;
         }
         catch(SQLException e)
         {

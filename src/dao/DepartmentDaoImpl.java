@@ -17,8 +17,7 @@ public class DepartmentDaoImpl implements DepartmentDao
             pstmt.setString(1,dept.getDept());
             pstmt.setString(2,dept.getInf());
             int cnt=pstmt.executeUpdate();
-            if(cnt!=0) return true;
-            return false;
+            return cnt!=0;
         }
         catch(SQLException e)
         {
@@ -59,8 +58,7 @@ public class DepartmentDaoImpl implements DepartmentDao
             pstmt.setString(1,dept.getInf());
             pstmt.setString(2,dept.getDept());
             int cnt=pstmt.executeUpdate();
-            if(cnt!=0) return true;
-            return false;
+            return cnt!=0;
         }
         catch(SQLException e)
         {
@@ -76,8 +74,7 @@ public class DepartmentDaoImpl implements DepartmentDao
         {
             pstmt.setString(1,dept_name);
             int cnt=pstmt.executeUpdate();
-            if(cnt!=0) return true;
-            return false;
+            return cnt!=0;
         }
         catch(SQLException e)
         {

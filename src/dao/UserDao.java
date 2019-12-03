@@ -4,11 +4,11 @@ import obj.User;
 
 public interface UserDao extends Dao
 {
-    public boolean addUser(User user);
+    boolean addUser(User user);
 
-    public User findByName(String username);
+    User findByName(String username);
 
-    public boolean modifyUser(User user);
+    boolean modifyUser(User user);
 
-    public boolean delUser(String username);
+    boolean delUser(String username);
 }
