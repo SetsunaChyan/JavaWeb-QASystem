@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Curriculum implements Serializable
 {
-    String name, teacher, inf, dept;
+    String name, inf, dept;
 
     public void setDept(String dept)
     {
@@ -21,11 +21,6 @@ public class Curriculum implements Serializable
         this.name=name;
     }
 
-    public void setTeacher(String teacher)
-    {
-        this.teacher=teacher;
-    }
-
     public String getDept()
     {
         return dept;
@@ -39,10 +34,5 @@ public class Curriculum implements Serializable
     public String getName()
     {
         return name;
-    }
-
-    public String getTeacher()
-    {
-        return teacher;
     }
 }

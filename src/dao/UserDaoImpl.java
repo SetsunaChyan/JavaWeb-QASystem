@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao
 {
@@ -50,6 +51,33 @@ public class UserDaoImpl implements UserDao
             return null;
         }
         return user;
+    }
+
+    public ArrayList<User> findByCurriculum(String cur_name)
+    {
+        ArrayList<User> arr=new ArrayList<>();
+        String sql="select * from users,teach where u_name=te_name and cur_name=?;";
+        User tmp=new User();
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
+        {
+            pstmt.setString(1,cur_name);
+            try(ResultSet ret=pstmt.executeQuery())
+            {
+                while(ret.next())
+                {
+                    tmp.setUsername(ret.getString("u_name"));
+                    tmp.setUsertype(ret.getString("u_type"));
+                    tmp.setPassword(ret.getString("u_password"));
+                    arr.add(tmp);
+                }
+            }
+            return arr;
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean modifyUser(User user)
