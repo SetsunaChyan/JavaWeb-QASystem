@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@ include file="../index/headerInclude.jsp" %>
-    <title>仪表盘 - 账号管理 - 教师账号</title>
+    <title>仪表盘 - 账号管理 - 学生账号</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">

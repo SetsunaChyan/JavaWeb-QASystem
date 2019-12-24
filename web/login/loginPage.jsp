@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <a href="register.jsp" class="layadmin-user-jump-change layadmin-link" style="width: 77%">学生注册</a>
+            <a href="regPage.jsp" class="layadmin-user-jump-change layadmin-link" style="width: 77%">学生注册</a>
         </div>
     </form>
 </div>
