@@ -5,7 +5,6 @@
     <title>登录</title>
 </head>
 <body>
-
 <div class="layui-col-md6 layui-col-md-offset3" align="center" style="margin-top: 5cm;">
     <form class="layui-form" action="doLogin" method="post">
         <div class="layadmin-user-login-box layadmin-user-login-header">
@@ -37,8 +36,9 @@
 <script>
     layui.use('form', function () {
         const form = layui.form;
-        //监听提交
-
+        form.verify({
+            required: [/[\S]+/, "必填项不能为空"]
+        });
     });
 </script>
 </body>

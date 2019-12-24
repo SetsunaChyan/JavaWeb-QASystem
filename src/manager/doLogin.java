@@ -32,4 +32,9 @@ public class doLogin extends HttpServlet
         else
             response.sendRedirect(request.getContextPath()+"/login/loginPage.jsp");
     }
+
+    protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
+    {
+        doPost(request,response);
+    }
 }

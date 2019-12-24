@@ -36,7 +36,7 @@ public class accessFilter implements Filter
                 ret=true;
                 break;
             }
-        return !ret;
+        return ret;
     }
 
     public void destroy()
