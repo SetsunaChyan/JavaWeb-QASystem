@@ -6,17 +6,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DepartmentDaoImpl implements DepartmentDao
 {
     public boolean addDept(Department dept)
     {
-        String sql="insert into department value(?,?);";
+        String sql="insert into department values(?,?);";
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             pstmt.setString(1,dept.getDept());
             pstmt.setString(2,dept.getInf());
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)
@@ -26,38 +28,53 @@ public class DepartmentDaoImpl implements DepartmentDao
         }
     }
 
-    public Department findByName(String dept_name)
+    public ArrayList<Department> findByName(String dept_name)
     {
-        String sql="select * from department where dept_name=?;";
-        Department dept=new Department();
-        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
+        ArrayList<Department> arr=new ArrayList<>();
+        String sql;
+        Department dept;
+        try
         {
-            pstmt.setString(1,dept_name);
-            try(ResultSet ret=pstmt.executeQuery())
+            Connection conn=getConnection();
+            PreparedStatement pstmt;
+            if(dept_name==null||dept_name.equals("*"))
             {
-                if(ret.next())
-                {
-                    dept.setDept(dept_name);
-                    dept.setInf(ret.getString("inf"));
-                }else return null;
+                sql="select * from department;";
+                pstmt=conn.prepareStatement(sql);
             }
+            else
+            {
+                sql="select * from department where dept_name=?;";
+                pstmt=conn.prepareStatement(sql);
+                pstmt.setString(1,dept_name);
+            }
+            ResultSet ret=pstmt.executeQuery();
+            while(ret.next())
+            {
+                dept=new Department();
+                dept.setDept(ret.getString("dept_name"));
+                dept.setInf(ret.getString("inf"));
+                arr.add(dept);
+            }
+            conn.close();
         }
         catch(SQLException e)
         {
             e.printStackTrace();
             return null;
         }
-        return dept;
+        return arr;
     }
 
     public boolean modifyDept(Department dept)
     {
-        String sql="update Department inf=? where dept_name=?;";
+        String sql="update Department set inf=? where dept_name=?;";
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             pstmt.setString(1,dept.getInf());
             pstmt.setString(2,dept.getDept());
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)
@@ -74,6 +91,7 @@ public class DepartmentDaoImpl implements DepartmentDao
         {
             pstmt.setString(1,dept_name);
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)

@@ -19,6 +19,7 @@ public class UserDaoImpl implements UserDao
             pstmt.setString(2,user.getPassword());
             pstmt.setString(3,user.getUsertype());
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)
@@ -41,8 +42,10 @@ public class UserDaoImpl implements UserDao
                 {
                     user.setUsername(ret.getString("u_name"));
                     user.setPassword(ret.getString("u_password"));
-                    user.setUsertype(ret.getString("u_usertype"));
-                }else return null;
+                    user.setUsertype(ret.getString("u_type"));
+                }
+                else
+                    return null;
             }
         }
         catch(SQLException e)
@@ -71,6 +74,36 @@ public class UserDaoImpl implements UserDao
                     arr.add(tmp);
                 }
             }
+            conn.close();
+            return arr;
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<User> findByUsertype(String usertype)
+    {
+        ArrayList<User> arr=new ArrayList<>();
+        String sql="select * from users where u_type=?;";
+        User tmp=new User();
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
+        {
+            pstmt.setString(1,usertype);
+            try(ResultSet ret=pstmt.executeQuery())
+            {
+                while(ret.next())
+                {
+                    tmp=new User();
+                    tmp.setUsername(ret.getString("u_name"));
+                    tmp.setUsertype(ret.getString("u_type"));
+                    tmp.setPassword(ret.getString("u_password"));
+                    arr.add(tmp);
+                }
+            }
+            conn.close();
             return arr;
         }
         catch(SQLException e)
@@ -89,6 +122,7 @@ public class UserDaoImpl implements UserDao
             pstmt.setString(2,user.getUsertype());
             pstmt.setString(3,user.getUsername());
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)
@@ -105,6 +139,7 @@ public class UserDaoImpl implements UserDao
         {
             pstmt.setString(1,username);
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)

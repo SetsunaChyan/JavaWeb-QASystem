@@ -3,8 +3,8 @@
     <Resource
             name="jdbc/webstoreDS"
             type="javax.sql.DataSource"
-            maxTotal="4"
-            maxIdle="2"
+            maxTotal="30"
+            maxIdle="15"
             driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
             url="jdbc:sqlserver://localhost:1433;DatabaseName=QASystemDB"
             username="Setsuna"

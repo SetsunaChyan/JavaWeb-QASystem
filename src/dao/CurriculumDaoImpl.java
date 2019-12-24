@@ -2,10 +2,7 @@ package dao;
 
 import obj.Curriculum;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class CurriculumDaoImpl implements CurriculumDao
@@ -19,6 +16,7 @@ public class CurriculumDaoImpl implements CurriculumDao
             pstmt.setString(2,cur.getInf());
             pstmt.setString(3,cur.getDept());
             int cnt=pstmt.executeUpdate();
+            conn.close();
             return cnt!=0;
         }
         catch(SQLException e)
@@ -46,6 +44,7 @@ public class CurriculumDaoImpl implements CurriculumDao
                     arr.add(tmp);
                 }
             }
+            conn.close();
             return arr;
         }
         catch(SQLException e)
@@ -73,6 +72,7 @@ public class CurriculumDaoImpl implements CurriculumDao
                     arr.add(tmp);
                 }
             }
+            conn.close();
             return arr;
         }
         catch(SQLException e)
@@ -93,6 +93,7 @@ public class CurriculumDaoImpl implements CurriculumDao
             pstmt.executeUpdate();
             pstmt=conn.prepareStatement(sql2);
             pstmt.setString(1,cur_name);
+            conn.close();
             return pstmt.executeUpdate()!=0;
         }
         catch(SQLException e)
@@ -100,6 +101,32 @@ public class CurriculumDaoImpl implements CurriculumDao
             e.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<Curriculum> findAll()
+    {
+        ArrayList<Curriculum> arr=new ArrayList<>();
+        String sql="select * from curriculum;";
+        Curriculum curr;
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
+        {
+            ResultSet ret=pstmt.executeQuery();
+            while(ret.next())
+            {
+                curr=new Curriculum();
+                curr.setName(ret.getString("cur_name"));
+                curr.setInf(ret.getString("inf"));
+                curr.setDept(ret.getString("dept_name"));
+                arr.add(curr);
+            }
+            conn.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return arr;
     }
 
     public boolean modifyCurriculum(Curriculum cur)
@@ -110,6 +137,7 @@ public class CurriculumDaoImpl implements CurriculumDao
             pstmt.setString(1,cur.getInf());
             pstmt.setString(2,cur.getDept());
             pstmt.setString(3,cur.getName());
+            conn.close();
             return pstmt.executeUpdate()!=0;
         }
         catch(SQLException e)

@@ -12,6 +12,8 @@ public interface UserDao extends Dao
 
     ArrayList<User> findByCurriculum(String cur_name);
 
+    ArrayList<User> findByUsertype(String usertype);
+
     boolean modifyUser(User user);
 
     boolean delUser(String username);
