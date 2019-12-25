@@ -29,8 +29,8 @@ public class CurriculumDaoImpl implements CurriculumDao
     public ArrayList<Curriculum> findByTeacher(String teacher)
     {
         ArrayList<Curriculum> arr=new ArrayList<>();
-        String sql="select * from curriculum,teach where curriculum.cur_name=teach.cur_name and te_name=?;";
-        Curriculum tmp=new Curriculum();
+        String sql="select * from curriculum inner join teach on curriculum.cur_name=teach.cur_name and te_name=?;";
+        Curriculum tmp;
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             pstmt.setString(1,teacher);
@@ -38,6 +38,7 @@ public class CurriculumDaoImpl implements CurriculumDao
             {
                 while(ret.next())
                 {
+                    tmp=new Curriculum();
                     tmp.setName(ret.getString("cur_name"));
                     tmp.setInf(ret.getString("inf"));
                     tmp.setDept(ret.getString("dept_name"));
@@ -58,7 +59,7 @@ public class CurriculumDaoImpl implements CurriculumDao
     {
         ArrayList<Curriculum> arr=new ArrayList<>();
         String sql="select * from curriculum where dept_name=?;";
-        Curriculum tmp=new Curriculum();
+        Curriculum tmp;
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             pstmt.setString(1,dept_name);
@@ -66,6 +67,7 @@ public class CurriculumDaoImpl implements CurriculumDao
             {
                 while(ret.next())
                 {
+                    tmp=new Curriculum();
                     tmp.setName(ret.getString("cur_name"));
                     tmp.setInf(ret.getString("inf"));
                     tmp.setDept(ret.getString("dept_name"));
@@ -74,6 +76,34 @@ public class CurriculumDaoImpl implements CurriculumDao
             }
             conn.close();
             return arr;
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Curriculum findByName(String cur_name)
+    {
+        ArrayList<Curriculum> arr=new ArrayList<>();
+        String sql="select * from curriculum where cur_name=?;";
+        Curriculum tmp=new Curriculum();
+        try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
+        {
+            pstmt.setString(1,cur_name);
+            try(ResultSet ret=pstmt.executeQuery())
+            {
+                if(ret.next())
+                {
+                    tmp.setName(ret.getString("cur_name"));
+                    tmp.setInf(ret.getString("inf"));
+                    tmp.setDept(ret.getString("dept_name"));
+                    arr.add(tmp);
+                }
+            }
+            conn.close();
+            return tmp;
         }
         catch(SQLException e)
         {

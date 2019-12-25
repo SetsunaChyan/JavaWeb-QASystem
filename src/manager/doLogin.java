@@ -27,7 +27,7 @@ public class doLogin extends HttpServlet
             if(user.getUsertype().equals("admin"))
                 response.sendRedirect(request.getContextPath()+"/admin/dashboard.jsp");
             else
-                response.sendRedirect(request.getContextPath()+"/index.jsp");
+                response.sendRedirect(request.getContextPath()+"/index/goIndex");
         }
         else
             response.sendRedirect(request.getContextPath()+"/login/loginPage.jsp");

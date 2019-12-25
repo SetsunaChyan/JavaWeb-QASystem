@@ -2,7 +2,7 @@
 <div class="layui-header">
     <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="../index.jsp" target="_blank" title="主页">
+            <a href="${pageContext.request.contextPath}/index/goIndex" target="_blank" title="主页">
                 <i class="layui-icon layui-icon-home"></i>
             </a>
         </li>
@@ -19,7 +19,6 @@
                 <cite>${sessionScope.user.username}</cite>
             </a>
             <dl class="layui-nav-child">
-                <dd><a lay-href="">基本资料</a></dd>
                 <dd><a lay-href="">修改密码</a></dd>
                 <hr>
                 <dd style="text-align: center;"><a href="${pageContext.request.contextPath}/login/doLogout">退出</a>
@@ -36,10 +35,10 @@
 <div class="layui-side layui-side-menu">
     <div class="layui-side-scroll">
         <div class="layui-logo">
-            <span>在线答疑系统</span>
+            <span>在线答疑系统 - 管理员</span>
         </div>
         <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="">
-            <li class="layui-nav-item layui-this lay-unselect" lay-unselect><a href="../admin/dashboard.jsp"><i
+            <li class="layui-nav-item" lay-unselect><a href="../admin/dashboard.jsp"><i
                     class="layui-icon layui-icon-console"></i>仪表盘</a></li>
             <li class="layui-nav-item" lay-unselect><a href="../admin/department.jsp"><i
                     class="layui-icon layui-icon-component"></i>学院信息维护</a></li>
@@ -53,7 +52,8 @@
                     <dd lay-unselect><a href="../admin/studentAccount.jsp">学生账号</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item" lay-unselect><a href=""><i class="layui-icon layui-icon-table"></i>授课信息维护</a>
+            <li class="layui-nav-item" lay-unselect><a href="../admin/teach.jsp"><i
+                    class="layui-icon layui-icon-table"></i>授课信息维护</a>
             <li class="layui-nav-item" lay-unselect><a href=""><i class="layui-icon layui-icon-dialogue"></i>留言信息维护</a>
             </li>
         </ul>

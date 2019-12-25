@@ -1,10 +1,7 @@
 package manager;
 
 import dao.*;
-import obj.Curriculum;
-import obj.Department;
-import obj.Teacher;
-import obj.User;
+import obj.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,6 +20,7 @@ public class doDataUpdate extends HttpServlet
     private static UserDaoImpl UserDao=new UserDaoImpl();
     private static CurriculumDaoImpl CurrDao=new CurriculumDaoImpl();
     private static TeacherDaoImpl TeacherDao=new TeacherDaoImpl();
+    private static TeachDaoImpl TeachDao=new TeachDaoImpl();
 
     private boolean updateDepartment(String dept_name,String inf)
     {
@@ -125,6 +123,22 @@ public class doDataUpdate extends HttpServlet
         return UserDao.modifyUser(user);
     }
 
+    private boolean delTeach(String cur_name,String te_name)
+    {
+        Teach teach=new Teach();
+        teach.setCur_name(cur_name);
+        teach.setTe_name(te_name);
+        return TeachDao.delTeach(teach);
+    }
+
+    private boolean addTeach(String cur_name,String te_name)
+    {
+        Teach teach=new Teach();
+        teach.setCur_name(cur_name);
+        teach.setTe_name(te_name);
+        return TeachDao.addTeach(teach);
+    }
+
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
         response.setHeader("Access-Control-Allow-Origin","*");
@@ -167,6 +181,12 @@ public class doDataUpdate extends HttpServlet
                     ret=addStudent(request.getParameter("name"),request.getParameter("password"));
                 else if(op.equals("reset"))
                     ret=resetPassword(request.getParameter("name"),"student");
+                break;
+            case "teach":
+                if(op.equals("del"))
+                    ret=delTeach(request.getParameter("cur_name"),request.getParameter("te_name"));
+                else if(op.equals("add"))
+                    ret=addTeach(request.getParameter("cur_name"),request.getParameter("te_name"));
                 break;
         }
         if(ret)

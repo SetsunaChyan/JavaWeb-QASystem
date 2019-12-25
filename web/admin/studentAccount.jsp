@@ -119,6 +119,10 @@
                     }
                 });
 
+                form.verify({
+                    required: [/[\S]+/, "必填项不能为空"]
+                });
+
                 //提交增加
                 form.on('submit(table_add_form_submit)', function (data) {
                     $.ajax({

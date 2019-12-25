@@ -1,6 +1,8 @@
 package obj;
 
-public class Teach
+import java.io.Serializable;
+
+public class Teach implements Serializable
 {
     private String te_name, cur_name;
 

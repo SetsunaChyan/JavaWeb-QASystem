@@ -7,18 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import dao.CurriculumDaoImpl;
-import dao.DepartmentDaoImpl;
-import dao.TeacherDaoImpl;
-import dao.UserDaoImpl;
-import obj.Curriculum;
-import obj.Department;
-import obj.Teacher;
-import obj.User;
+import dao.*;
+import obj.*;
 import org.json.JSONObject;
 
 @WebServlet(name="getJSON", urlPatterns={"/getJSON"})
@@ -29,6 +22,7 @@ public class getJSON extends HttpServlet
     private static UserDaoImpl UserDao=new UserDaoImpl();
     private static TeacherDaoImpl TeacherDao=new TeacherDaoImpl();
     private static CurriculumDaoImpl CurrDao=new CurriculumDaoImpl();
+    private static TeachDaoImpl TeachDao=new TeachDaoImpl();
 
     private void getDepartmentJSON(JSONObject json)
     {
@@ -83,6 +77,29 @@ public class getJSON extends HttpServlet
         }
     }
 
+    private void getTeachJSON(JSONObject json)
+    {
+        ArrayList<Teach> arr=TeachDao.findAll();
+        json.put("count",arr.size());
+        for(Teach teach: arr)
+        {
+            hm=new HashMap<>();
+            hm.put("cur_name",teach.getCur_name());
+            hm.put("te_name",teach.getTe_name());
+            json.append("data",new JSONObject(hm));
+        }
+    }
+
+    private void getCurrTeacherJSON(JSONObject json)
+    {
+        ArrayList<Curriculum> CurArr=CurrDao.findAll();
+        ArrayList<Teacher> TeacherArr=TeacherDao.findAll();
+        for(Curriculum curr: CurArr)
+            json.append("cur_name",curr.getName());
+        for(Teacher teacher: TeacherArr)
+            json.append("te_name",teacher.getName());
+    }
+
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
         response.setHeader("Access-Control-Allow-Origin","*");
@@ -100,6 +117,10 @@ public class getJSON extends HttpServlet
             getTeacherJSON(json);
         else if(datatype.equals("student"))
             getStudentJSON(json);
+        else if(datatype.equals("teach"))
+            getTeachJSON(json);
+        else if(datatype.equals("curr&teacher"))
+            getCurrTeacherJSON(json);
         //System.out.println(json);
         out.print(json);
     }

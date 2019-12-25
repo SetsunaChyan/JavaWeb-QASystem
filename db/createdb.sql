@@ -1,6 +1,6 @@
 use QASystemDB;
 
-drop table teach,curriculum,teacher,department,users;
+drop table question,teach,curriculum,teacher,department,users;
 
 create table users
 (
@@ -67,4 +67,18 @@ create table teach
     primary key (te_name, cur_name),
     foreign key (cur_name) references curriculum (cur_name),
     foreign key (te_name) references teacher (te_name)
+);
+
+create table question
+(
+    qid       int,
+    cur_name  nvarchar(40),
+    username  nvarchar(40),
+    timestamp nvarchar(40),
+    context   nvarchar(1023),
+    picPath   nvarchar(1023),
+    solved    int,
+    title     nvarchar(1023),
+    foreign key (cur_name) references curriculum (cur_name),
+    primary key (qid)
 );

@@ -4,3 +4,4 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/login.css" media="all">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/admin.css" media="all">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/template.css" media="all">

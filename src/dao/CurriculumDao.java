@@ -12,6 +12,8 @@ public interface CurriculumDao extends Dao
 
     ArrayList<Curriculum> findByDept(String dept_name);
 
+    Curriculum findByName(String cur_name);
+
     ArrayList<Curriculum> findAll();
 
     boolean delCurriculum(String cur_name);

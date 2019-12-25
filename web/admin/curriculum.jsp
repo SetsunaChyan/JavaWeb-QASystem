@@ -152,6 +152,10 @@
                         table_edit_form('编辑课程信息', "#table-edit-frame", 380, 350, true, data);
                 });
 
+                form.verify({
+                    required: [/[\S]+/, "必填项不能为空"]
+                });
+
                 //提交修改
                 form.on('submit(table_edit_form_submit)', function (data) {
                     const formData = data.field;

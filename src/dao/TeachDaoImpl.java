@@ -14,7 +14,7 @@ public class TeachDaoImpl implements TeachDao
 
     public boolean addTeach(Teach teach)
     {
-        String sql="insert into teacher values(?,?);";
+        String sql="insert into teach values(?,?);";
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             pstmt.setString(1,teach.getTe_name());

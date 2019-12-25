@@ -60,7 +60,7 @@ public class accessFilter implements Filter
         else if(user!=null&&needAdminAuthority(path))
         {
             if(!user.getUsertype().equals("admin"))
-                response.sendRedirect(request.getContextPath()+"/index.jsp");
+                response.sendRedirect(request.getContextPath()+"/index/goIndex");
             chain.doFilter(req,resp);
             return;
         }
