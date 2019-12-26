@@ -549,7 +549,7 @@
 }
 
 .message-content .media-body {
-    margin-bottom: 60px
+    margin-bottom: 30px
 }
 
 .message-content .media-body .pad-btm {
@@ -566,7 +566,7 @@
 }
 
 .message-text {
-    padding-top: 10px
+    padding-top: 5px
 }
 
 .message-content-btn {
@@ -575,7 +575,7 @@
 
 .message-content .layui-btn {
     height: auto;
-    line-height: 26px;
+    line-height: 36px;
     padding: 5px 30px;
     font-size: 16px
 }

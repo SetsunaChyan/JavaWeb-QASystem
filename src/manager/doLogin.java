@@ -1,5 +1,6 @@
 package manager;
 
+import dao.QuestionDaoImpl;
 import dao.UserDaoImpl;
 import obj.User;
 
@@ -14,6 +15,8 @@ import java.io.IOException;
 @WebServlet(name="doLogin", urlPatterns={"/login/doLogin"})
 public class doLogin extends HttpServlet
 {
+    private static QuestionDaoImpl QDao=new QuestionDaoImpl();
+
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
         String t_password=request.getParameter("password");
@@ -24,10 +27,18 @@ public class doLogin extends HttpServlet
         session.setAttribute("user",user);
         if(user!=null&&user.getPassword().equals(t_password))
         {
+            if(user.getUsertype().equals("student"))
+                session.setAttribute("viewNum",QDao.findByStudentCnt(t_username));
+            else if(user.getUsertype().equals("teacher"))
+                session.setAttribute("viewNum",QDao.findByTeacherCnt(t_username));
+            else
+                session.setAttribute("viewNum",0);
             if(user.getUsertype().equals("admin"))
                 response.sendRedirect(request.getContextPath()+"/admin/dashboard.jsp");
-            else
+            else if(user.getUsertype().equals("student"))
                 response.sendRedirect(request.getContextPath()+"/index/goIndex");
+            else if(user.getUsertype().equals("teacher"))
+                response.sendRedirect(request.getContextPath()+"/teacher/goTeacherIndex");
         }
         else
             response.sendRedirect(request.getContextPath()+"/login/loginPage.jsp");

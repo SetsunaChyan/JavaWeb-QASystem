@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Question implements Serializable
+public class Question implements Serializable, Comparable<Question>
 {
     private static final SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private int qid, solved;
@@ -93,5 +93,10 @@ public class Question implements Serializable
     public void setTitle(String title)
     {
         this.title=title;
+    }
+
+    public int compareTo(Question o)
+    {
+        return Integer.compare(qid,o.getQid());
     }
 }

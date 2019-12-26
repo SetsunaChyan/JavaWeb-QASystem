@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name="goQuestions", urlPatterns={"/index/goQuestions"})
-public class goQuestions extends HttpServlet
+@WebServlet(name="goTeacherQuestions", urlPatterns={"/teacher/goQuestions"})
+public class goTeacherQuestions extends HttpServlet
 {
     private static QuestionDaoImpl QDao=new QuestionDaoImpl();
     private static CurriculumDaoImpl curDao=new CurriculumDaoImpl();
@@ -32,23 +32,12 @@ public class goQuestions extends HttpServlet
     {
         String suffix="?";
         String mode=request.getParameter("mode");
-        String keyword=request.getParameter("keyword");
-        if(mode.equals("find"))
-            if(keyword==null||keyword.equals(""))
-                mode="all";
         suffix+="mode="+mode;
         int page=Integer.parseInt(request.getParameter("page"));
         int mxPage=1;
         ArrayList<Question> arr=null;
         ArrayList<Question> ret=new ArrayList<>();
-        if(mode.equals("all"))
-            arr=QDao.findAll();
-        else if(mode.equals("find"))
-        {
-            suffix+="&keyword="+keyword;
-            arr=QDao.findByContext(keyword);
-        }
-        else if(mode.equals("cur"))
+        if(mode.equals("cur"))
         {
             String cur_name=request.getParameter("cur_name");
             suffix+="&cur_name="+cur_name;
@@ -57,7 +46,7 @@ public class goQuestions extends HttpServlet
             request.setAttribute("cur_name",cur_name);
             request.setAttribute("inf",cur.getInf());
         }
-        else if(mode.equals("my"))
+        else if(mode.equals("teacher"))
         {
             User user=(User)request.getSession().getAttribute("user");
             String myName=user.getUsername();
@@ -82,11 +71,9 @@ public class goQuestions extends HttpServlet
         request.setAttribute("questions",ret);
         request.setAttribute("suffix",suffix);
         if(mode.equals("cur"))
-            request.getRequestDispatcher("/index/showQuestions.jsp?page="+page).forward(request,response);
-        else if(mode.equals("my"))
-            request.getRequestDispatcher("/student/showMyQuestions.jsp?page="+page).forward(request,response);
-        else if(mode.equals("all")||mode.equals("find"))
-            request.getRequestDispatcher("/index/showAllQuestions.jsp?page="+page).forward(request,response);
+            request.getRequestDispatcher("/teacher/teacherCurQuestions.jsp?page="+page).forward(request,response);
+        else if(mode.equals("teacher"))
+            request.getRequestDispatcher("/teacher/teacherQuestions.jsp?page="+page).forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException

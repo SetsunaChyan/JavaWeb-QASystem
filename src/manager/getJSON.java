@@ -23,6 +23,7 @@ public class getJSON extends HttpServlet
     private static TeacherDaoImpl TeacherDao=new TeacherDaoImpl();
     private static CurriculumDaoImpl CurrDao=new CurriculumDaoImpl();
     private static TeachDaoImpl TeachDao=new TeachDaoImpl();
+    private static BanDaoImpl BanDao=new BanDaoImpl();
 
     private void getDepartmentJSON(JSONObject json)
     {
@@ -100,6 +101,28 @@ public class getJSON extends HttpServlet
             json.append("te_name",teacher.getName());
     }
 
+    private void getBanJSON(JSONObject json)
+    {
+        ArrayList<Ban> BanArr=BanDao.findAll();
+        for(Ban ban: BanArr)
+        {
+            hm=new HashMap<>();
+            hm.put("cur_name",ban.getCur_name());
+            hm.put("u_name",ban.getU_name());
+            json.append("data",new JSONObject(hm));
+        }
+    }
+
+    private void getCurrStuJSON(JSONObject json)
+    {
+        ArrayList<Curriculum> CurArr=CurrDao.findAll();
+        ArrayList<User> UserArr=UserDao.findByUsertype("student");
+        for(Curriculum curr: CurArr)
+            json.append("cur_name",curr.getName());
+        for(User user: UserArr)
+            json.append("u_name",user.getUsername());
+    }
+
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
         response.setHeader("Access-Control-Allow-Origin","*");
@@ -121,6 +144,10 @@ public class getJSON extends HttpServlet
             getTeachJSON(json);
         else if(datatype.equals("curr&teacher"))
             getCurrTeacherJSON(json);
+        else if(datatype.equals("ban"))
+            getBanJSON(json);
+        else if(datatype.equals("curr&stu"))
+            getCurrStuJSON(json);
         //System.out.println(json);
         out.print(json);
     }

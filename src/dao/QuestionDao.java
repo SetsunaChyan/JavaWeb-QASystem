@@ -14,11 +14,19 @@ public interface QuestionDao extends Dao
 
     ArrayList<Question> findByTeacher(String te_name);
 
+    ArrayList<Question> findByUsername(String username);
+
+    Question findById(int qid);
+
     ArrayList<Question> findAll();
 
     boolean delQuestion(int qid);
 
     boolean updateQuestion(Question question);
+
+    int findByStudentCnt(String stu_name);
+
+    int findByTeacherCnt(String te_name);
 
     int findMxId();
 }

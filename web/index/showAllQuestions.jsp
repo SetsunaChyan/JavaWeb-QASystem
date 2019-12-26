@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@ include file="headerInclude.jsp" %>
-    <title>主页 - ${requestScope.cur_name} - 所有留言</title>
+    <title>主页 - 所有留言</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -10,17 +10,17 @@
     <div class="layui-body">
         <div class="layui-fluid layadmin-message-fluid">
             <div class="layui-row">
-                <div class="layui-col-md12"></div>
                 <div class="layui-col-md12 layadmin-homepage-list-imgtxt message-content">
                     <div class="media-body">
-                        <div class="pad-btm">
-                            <p class="fontColor"><a href="javascript:;">课程名称:</a> ${requestScope.cur_name}</p>
-                            <br>
-                            <p class="fontColor"><a href="javascript:;">课程信息:</a> ${requestScope.inf}</p>
-                            <br>
-                        </div>
+                        <form class="layui-form caller-seach"
+                              action="${pageContext.request.contextPath}/index/goQuestions">
+                            <input type="text" name="keyword" placeholder="&#xe615; 请输入搜索内容"
+                                   autocomplete="off" class="layui-input layui-icon caller-pl32">
+                            <input type="text" name="mode" value="find" style="display:none">
+                            <input type="text" name="page" value="1" style="display:none">
+                            <input type="submit" name="btn" style="display:none">
+                        </form>
                     </div>
-                    <hr>
                     <c:if test="${empty requestScope.questions}">
                         <div class="media-body">
                             <div class="pad-btm">
@@ -69,7 +69,7 @@
                                     </c:if>
                                     &emsp;&emsp;
                                     <c:if test="${requestScope.page lt requestScope.mxPage}">
-                                        <a href="${pageContext.request.contextPath}/index/goQuestions?qid=&page=${requestScope.page+1}">下一页</a>
+                                        <a href="${pageContext.request.contextPath}/index/goQuestions${requestScope.suffix}&page=${requestScope.page+1}">下一页</a>
                                     </c:if>
                                 </p>
                             </div>
@@ -79,5 +79,12 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).keydown(function (e) {
+            if (e.keyCode === 13) {
+                $('#btn').trigger("click");
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@ include file="headerInclude.jsp" %>
+    <%@ include file="../index/headerInclude.jsp" %>
     <title>主页 - ${requestScope.cur_name} - 所有留言</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <%@ include file="studentHeader.jsp" %>
+    <%@ include file="teacherHeader.jsp" %>
     <div class="layui-body">
         <div class="layui-fluid layadmin-message-fluid">
             <div class="layui-row">
@@ -32,7 +32,7 @@
                         <div class="media-body">
                             <div class="pad-btm">
                                 <p class="fontColor"><a
-                                        href="${pageContext.request.contextPath}/index/showQuestion?qid=${it.qid}">${it.title}&ensp;</a>
+                                        href="${pageContext.request.contextPath}/teacher/showQuestion?qid=${it.qid}">${it.title}&ensp;</a>
                                     <c:if test="${it.solved eq 0}">
                                         <span class="layui-badge-rim layui-bg-red">未解决</span>
                                     </c:if>
@@ -40,15 +40,8 @@
                                         <span class="layui-badge-rim layui-bg-green">已解决</span>
                                     </c:if>
                                     &ensp;
-                                    <c:if test="${not empty sessionScope.user}">
-                                        <c:set var="user" value="${sessionScope.user}"/>
-                                        <c:if test="${user.username eq it.username or user.usertype eq 'admin'}">
-                                            <a href="${pageContext.request.contextPath}/student/doAddQuestion?mode=update&qid=${it.qid}">编辑&ensp;|&ensp;</a>
-                                        </c:if>
-                                        <c:if test="${user.username eq it.username or user.usertype eq 'admin' or user.usertype eq 'teacher'}">
-                                            <a href="${pageContext.request.contextPath}/student/doAddQuestion?mode=del&qid=${it.qid}">删除</a>
-                                        </c:if>
-                                    </c:if>
+                                    <a href="${pageContext.request.contextPath}/teacher/doModifyQuestion?mode=update&qid=${it.qid}">编辑&ensp;|&ensp;</a>
+                                    <a href="${pageContext.request.contextPath}/teacher/doModifyQuestion?mode=del&qid=${it.qid}">删除</a>
                                 </p>
                                 <p class="min-font">
                                 <span class="layui-breadcrumb" lay-separator="-">
@@ -65,11 +58,11 @@
                             <div class="pad-btm">
                                 <p class="fontColor">
                                     <c:if test="${requestScope.page gt 1}">
-                                        <a href="${pageContext.request.contextPath}/index/goQuestions${requestScope.suffix}&page=${requestScope.page-1}">上一页</a>
+                                        <a href="${pageContext.request.contextPath}/teacher/goQuestions${requestScope.suffix}&page=${requestScope.page-1}">上一页</a>
                                     </c:if>
                                     &emsp;&emsp;
                                     <c:if test="${requestScope.page lt requestScope.mxPage}">
-                                        <a href="${pageContext.request.contextPath}/index/goQuestions?qid=&page=${requestScope.page+1}">下一页</a>
+                                        <a href="${pageContext.request.contextPath}/teacher/goQuestions?qid=&page=${requestScope.page+1}">下一页</a>
                                     </c:if>
                                 </p>
                             </div>

@@ -1,26 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@ include file="headerInclude.jsp" %>
-    <title>主页 - ${requestScope.cur_name} - 所有留言</title>
+    <%@ include file="../index/headerInclude.jsp" %>
+    <title>主页 - 我的留言</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <%@ include file="studentHeader.jsp" %>
+    <%@ include file="../index/studentHeader.jsp" %>
     <div class="layui-body">
         <div class="layui-fluid layadmin-message-fluid">
             <div class="layui-row">
                 <div class="layui-col-md12"></div>
                 <div class="layui-col-md12 layadmin-homepage-list-imgtxt message-content">
-                    <div class="media-body">
-                        <div class="pad-btm">
-                            <p class="fontColor"><a href="javascript:;">课程名称:</a> ${requestScope.cur_name}</p>
-                            <br>
-                            <p class="fontColor"><a href="javascript:;">课程信息:</a> ${requestScope.inf}</p>
-                            <br>
-                        </div>
-                    </div>
-                    <hr>
                     <c:if test="${empty requestScope.questions}">
                         <div class="media-body">
                             <div class="pad-btm">
@@ -69,7 +60,7 @@
                                     </c:if>
                                     &emsp;&emsp;
                                     <c:if test="${requestScope.page lt requestScope.mxPage}">
-                                        <a href="${pageContext.request.contextPath}/index/goQuestions?qid=&page=${requestScope.page+1}">下一页</a>
+                                        <a href="${pageContext.request.contextPath}/index/goQuestions${requestScope.suffix}&page=${requestScope.page+1}">下一页</a>
                                     </c:if>
                                 </p>
                             </div>

@@ -1,6 +1,6 @@
 use QASystemDB;
 
-drop table question,teach,curriculum,teacher,department,users;
+drop table ban,reply,question,teach,curriculum,teacher,department,users;
 
 create table users
 (
@@ -10,12 +10,17 @@ create table users
     primary key (u_name)
 );
 
-insert into users(u_name, u_password, u_type)
+insert into users
 values ('Setsuna', 'admin', 'admin');
-insert into users(u_name, u_password, u_type)
-values ('stu1', 'stu1', 'student');
-insert into users(u_name, u_password, u_type)
-values ('Azusa', 'kon', 'teacher');
+insert into users
+values ('Akyuu', '123456', 'student');
+insert into users
+values ('佟大为', '123456', 'teacher');
+insert into users
+values ('田所浩二', '123456', 'teacher');
+insert into users
+values ('rhy', '123456', 'teacher');
+
 
 create table department
 (
@@ -40,7 +45,9 @@ values ('外语学院',
 insert into department(dept_name, inf)
 values ('机械与工程学院',
         '上海理工大学机械工程学院建立于1999年5月，由上海理工大学机械工程系和上海理工大学复兴路校区机械工程系合并组建。上海理工大学机械专业的办学历史，可追溯到1912年的同济德文医工学堂机电科及暨后的各个时期。上海理工大学机械学科经过近九十年的建设和发展，已经成为国家和上海市培养先进制造领域人才和科学研究的重要基地。');
-
+insert into department(dept_name, inf)
+values ('麻省理工学院',
+        'I AK IOI');
 
 create table teacher
 (
@@ -51,6 +58,13 @@ create table teacher
     foreign key (te_name) references users (u_name)
 );
 
+insert into teacher
+values ('田所浩二', '♂', '野兽先辈');
+insert into teacher
+values ('佟大为', 'Deep Dark Fantasy', '教授');
+insert into teacher
+values ('rhy', '我 AK IOI', '讲师');
+
 create table curriculum
 (
     cur_name  nvarchar(40),
@@ -60,6 +74,19 @@ create table curriculum
     foreign key (dept_name) references department (dept_name)
 );
 
+insert into curriculum
+values ('体育课', '这是一门体育课', '理学院');
+insert into curriculum
+values ('数字图像处理', '这是一门数字图像处理', '光电信息与计算机工程学院');
+insert into curriculum
+values ('JAVA WEB', '这是一门JAVA WEB', '光电信息与计算机工程学院');
+insert into curriculum
+values ('软件工程', 'SE', '光电信息与计算机工程学院');
+insert into curriculum
+values ('数据库原理', 'DataBase', '光电信息与计算机工程学院');
+insert into curriculum
+values ('数据结构', 'DataStructure', '光电信息与计算机工程学院');
+
 create table teach
 (
     te_name  nvarchar(40),
@@ -68,6 +95,17 @@ create table teach
     foreign key (cur_name) references curriculum (cur_name),
     foreign key (te_name) references teacher (te_name)
 );
+
+insert into teach
+values ('田所浩二', '体育课');
+insert into teach
+values ('rhy', '数据结构');
+insert into teach
+values ('rhy', '数字图像处理');
+insert into teach
+values ('rhy', 'JAVA WEB');
+insert into teach
+values ('佟大为', '数据库原理');
 
 create table question
 (
@@ -81,4 +119,25 @@ create table question
     title     nvarchar(1023),
     foreign key (cur_name) references curriculum (cur_name),
     primary key (qid)
+);
+
+create table reply
+(
+    qid       int,
+    rid       int,
+    picPath   nvarchar(1023),
+    username  nvarchar(40),
+    context   nvarchar(1023),
+    timestamp nvarchar(40),
+    primary key (rid),
+    foreign key (qid) references question (qid)
+);
+
+create table ban
+(
+    cur_name nvarchar(40),
+    username nvarchar(40),
+    primary key (cur_name, username),
+    foreign key (cur_name) references curriculum (cur_name),
+    foreign key (username) references users (u_name)
 );

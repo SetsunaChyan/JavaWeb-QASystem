@@ -19,7 +19,7 @@
                 <cite>${sessionScope.user.username}</cite>
             </a>
             <dl class="layui-nav-child">
-                <dd><a lay-href="">修改密码</a></dd>
+                <dd><a href="${pageContext.request.contextPath}/login/changePsw.jsp">修改密码</a></dd>
                 <hr>
                 <dd style="text-align: center;"><a href="${pageContext.request.contextPath}/login/doLogout">退出</a>
                 </dd>
