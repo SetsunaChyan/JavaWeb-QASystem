@@ -64,10 +64,10 @@
                                     <c:if test="${not empty sessionScope.user}">
                                         <c:set var="user" value="${sessionScope.user}"/>
                                         <c:if test="${user.username eq it.username or user.usertype eq 'admin'}">
-                                            <a href="${pageContext.request.contextPath}/student/doAddQuestion?mode=update&qid=${it.qid}">编辑&ensp;|&ensp;</a>
+                                            <a href="${pageContext.request.contextPath}/teacher/doReply?mode=update&rid=${rit.rid}">编辑&ensp;|&ensp;</a>
                                         </c:if>
                                         <c:if test="${user.username eq it.username or user.usertype eq 'admin'}">
-                                            <a href="${pageContext.request.contextPath}/student/doAddQuestion?mode=del&qid=${it.qid}">删除</a>
+                                            <a href="${pageContext.request.contextPath}/teacher/doReply?mode=del&rid=${rit.rid}">删除</a>
                                         </c:if>
                                     </c:if>
                                 </p>

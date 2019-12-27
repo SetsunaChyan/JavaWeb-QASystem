@@ -54,12 +54,13 @@
                     href="${pageContext.request.contextPath}/student/doAddQuestion?mode=add"><i
                     class="layui-icon layui-icon-dialogue"></i>添加留言</a></li>
             <c:if test="${not empty sessionScope.user}">
-                <li class="layui-nav-item" lay-unselect><a
-                        href="${pageContext.request.contextPath}/index/goQuestions?page=1&mode=my"><i
-                        class="layui-icon layui-icon-reply-fill"></i>我的留言</a>
-                    <c:if test="${sessionScope.viewNum gt 0}">
-                        <span class="layui-badge">${sessionScope.viewNum}</span>
-                    </c:if>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="${pageContext.request.contextPath}/index/goQuestions?page=1&mode=my">
+                        <i class="layui-icon layui-icon-reply-fill"></i>我的留言
+                        <c:if test="${sessionScope.viewNum gt 0}">
+                            <span class="layui-badge">${sessionScope.viewNum}</span>
+                        </c:if>
+                    </a>
                 </li>
             </c:if>
             <li class="layui-nav-item" lay-unselect><a

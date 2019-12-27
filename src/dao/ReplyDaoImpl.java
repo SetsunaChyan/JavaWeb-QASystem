@@ -43,7 +43,7 @@ public class ReplyDaoImpl implements ReplyDao
         {
             pstmt.setInt(1,qid);
             ResultSet ret=pstmt.executeQuery();
-            if(ret.next())
+            while(ret.next())
             {
                 tmp=new Reply();
                 tmp.setQid(ret.getInt("qid"));
@@ -73,7 +73,7 @@ public class ReplyDaoImpl implements ReplyDao
         {
             pstmt.setString(1,username);
             ResultSet ret=pstmt.executeQuery();
-            if(ret.next())
+            while(ret.next())
             {
                 tmp=new Reply();
                 tmp.setQid(ret.getInt("qid"));
@@ -130,7 +130,7 @@ public class ReplyDaoImpl implements ReplyDao
         try(Connection conn=getConnection();PreparedStatement pstmt=conn.prepareStatement(sql))
         {
             ResultSet ret=pstmt.executeQuery();
-            if(ret.next())
+            while(ret.next())
             {
                 tmp=new Reply();
                 tmp.setQid(ret.getInt("qid"));

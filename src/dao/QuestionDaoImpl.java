@@ -171,7 +171,7 @@ public class QuestionDaoImpl implements QuestionDao
         {
             pstmt.setString(1,username);
             ResultSet ret=pstmt.executeQuery();
-            if(ret.next())
+            while(ret.next())
             {
                 tmp=new Question();
                 tmp.setQid(ret.getInt("qid"));

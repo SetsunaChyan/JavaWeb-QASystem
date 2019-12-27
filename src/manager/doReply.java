@@ -34,6 +34,7 @@ public class doReply extends HttpServlet
         }
         Reply reply=ReplyDao.findById(Integer.parseInt(request.getParameter("rid")));
         Question question=QDao.findById(reply.getQid());
+        User user=(User)request.getSession().getAttribute("user");
         if(mode.equals("del"))
         {
             ReplyDao.delReply(reply.getRid());
@@ -41,7 +42,6 @@ public class doReply extends HttpServlet
             {
                 question.setSolved(0);
                 QDao.updateQuestion(question);
-                User user=(User)request.getSession().getAttribute("user");
                 int cnt=QDao.findByTeacherCnt(user.getUsername());
                 request.getSession().setAttribute("viewNum",cnt);
             }
@@ -54,7 +54,10 @@ public class doReply extends HttpServlet
             request.setAttribute("title",question.getTitle());
             request.setAttribute("reply",reply);
         }
-        request.getRequestDispatcher("/teacher/teacherAddReply.jsp").forward(request,response);
+        if(user.getUsertype().equals("teacher"))
+            request.getRequestDispatcher("/teacher/teacherAddReply.jsp").forward(request,response);
+        else if(user.getUsertype().equals("admin"))
+            request.getRequestDispatcher("/index/goIndex").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException

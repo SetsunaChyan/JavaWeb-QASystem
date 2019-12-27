@@ -17,18 +17,18 @@ public class doChangePwd extends HttpServlet
 
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
-        User user=(User)request.getAttribute("user");
+        User user=(User)request.getSession().getAttribute("user");
         if(user==null)
         {
             request.getRequestDispatcher("/login/loginPage.jsp").forward(request,response);
             return;
         }
-        if(!user.getPassword().equals(request.getParameter("oldPsw")))
+        if(!user.getPassword().equals(request.getParameter("oldPwd")))
         {
             request.getRequestDispatcher("/login/changePwd.jsp").forward(request,response);
             return;
         }
-        user.setPassword(request.getParameter("psw"));
+        user.setPassword(request.getParameter("pwd"));
         UserDao.modifyUser(user);
         if(user.getUsertype().equals("teacher"))
             request.getRequestDispatcher("/teacher/goTeacherIndex").forward(request,response);

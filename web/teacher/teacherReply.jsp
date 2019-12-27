@@ -98,7 +98,7 @@
                             <div class="pad-btm">
                                 <p class="fontColor"><a href="javascript:;">${rit.username}&ensp;</a>
                                     &ensp;
-                                    <c:if test="${user.username eq it.username}">
+                                    <c:if test="${user.username eq rit.username}">
                                         <a href="${pageContext.request.contextPath}/teacher/doReply?mode=update&rid=${rit.rid}">编辑&ensp;|&ensp;</a>
                                         <a href="${pageContext.request.contextPath}/teacher/doReply?mode=del&rid=${rit.rid}">删除</a>
                                     </c:if>

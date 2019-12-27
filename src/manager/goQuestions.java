@@ -65,6 +65,10 @@ public class goQuestions extends HttpServlet
                 arr=QDao.findByTeacher(myName);
             else if(user.getUsertype().equals("student"))
                 arr=QDao.findByUsername(myName);
+            System.out.println(user.getUsername());
+            System.out.println(arr.size());
+            System.out.println(QDao.findByStudentCnt(user.getUsername()));
+            request.getSession().setAttribute("viewNum",0);
         }
         if(arr==null)
             arr=new ArrayList<>();
